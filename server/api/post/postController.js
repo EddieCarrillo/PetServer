@@ -1,23 +1,54 @@
+var Post = require('./postModel');
+
 exports.param = function(req, res, next, id){
-  console.log("Path param present: " + id );
-  req.id = id;
+  Post.findOne({_id: id}, function(err, post){
+    if (err){
+      console.log("ERROR", err);
+      res.status(400).json();
+    }else if (!post){
+      console.log("Could not find the post");
+      res.status(400).json();
+    }else{
+      res.post = post;
+    }
+  })
   next();
 }
 
 exports.get = function(req, res){
-  console.log("returns all public posts");
-  res.json();
+  Post.find({}, function(err,posts){
+    if (err){
+      console.log("ERROR", err);
+      res.status(400).json();
+    }else if (!posts){
+      console.log("Could not find posts");
+      res.status(400).json();
+    }else{
+      console.log(posts);
+      res.status(200).json(posts);
+    }
+  })
 }
 
 
 exports.getId = function(req, res){
-
-  console.log("returns a post represented by its it id");
-  res.json();
+  res.json(res.post);
 }
 
 
 exports.post = function(req, res){
-  console.log("Create a new posts and return it back to the client")
-  res.json();
+  console.log(req.body);
+
+  Post.create(req.body, function(err, post){
+    if (err){
+      console.log(err.message)
+      res.status(400).json();
+    }else if (!post){
+      console.log("Could not create a post");
+      res.status(400).json();
+    }else{
+      console.log("Created a new post");
+      res.status(201).json(post);
+    }
+  });
 }
