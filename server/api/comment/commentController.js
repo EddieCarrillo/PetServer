@@ -1,22 +1,50 @@
-
+var Comment = require('./commentModel.js');
 
 exports.param = function(req, res, next, id){
-  req.id = id;
-  console.log("Got path param id")
-  next();
+  Comment.findOne({_id: id}, function(err, comment){
+    if(err){
+      console.log(err);
+      res.status(400).json();
+    }else if(!comment){
+      console.log("Could not find the user.")
+      res.status(400).json();
+    }else{
+      res.comment = comment;
+      next();
+    }
+  });
 }
 
 exports.get = function(req, res){
-  console.log("returns all the comments associated with a post using where query param");
-  res.json();
+  Comment.find({}, function (err, comments){
+    if (err){
+      console.log("ERROR", err.message);
+      res.status(400).json();
+    }else if (!comments){
+      console.log("No comments found!!!");
+      res.status(400).json();
+    }else{
+      console.log("Return list of comments", comments);
+      res.status(200).json(comments);
+    }
+  });
 }
 
 exports.getId = function(req, res){
   console.log("returns a comment represented by its id");
-  res.json();
+  res.json(res.comment);
 }
 
 exports.post = function(req, res){
-  console.log("Creates a new comment associated with a post user where query param");
-  res.json();
+  Comment.create(req.body, function(err, createdComment){
+    if (err){
+      console.log("ERROR", err.message);
+      res.status(400).json();
+    }else if (!createdComment){
+      console.log("Could not create a comment!")
+      res.status()
+    }else{
+      res.status(201).json(createdComment);
+    }
+  })
 }
