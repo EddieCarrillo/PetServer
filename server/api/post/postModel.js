@@ -4,23 +4,28 @@ var Schema = mongoose.Schema;
 
 var postSchema = new Schema({
   likes: Number,
+
   caption: {
     type: String,
-    required: true
+    required: false
   },
+
   likedBy: {
     type: Schema.Types.Mixed,
     default: {}
   },
+
   media: {
     type: Schema.Types.ObjectId,
     ref: 'files',
-    required: true
+    required: false
   },
+
   author: {
     type: Schema.Types.ObjectId,
-    ref: 'pet'
-  },
+    ref: 'pet',
+    required: false
+  }
 
 });
 
