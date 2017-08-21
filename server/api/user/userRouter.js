@@ -1,19 +1,13 @@
 var express = require('express');
 var router = express.Router();
+var userController = require('./userController');
 
-router.get('/', function(req, res){
-  console.log("Get all the public users");
-  res.json();
-});
+router.param('id', userController.param);
 
-router.get('/:id', function(req, res){
-  console.log("Return a user with id: " + req.params.id);
-  res.json();
-});
+router.get('/',userController.get );
 
-router.post('/', function(req, res){
-  console.log("Create a new user");
-  res.json();
-});
+router.get('/:id',userController.getId);
+
+router.post('/', userController.post);
 
 module.exports = router
