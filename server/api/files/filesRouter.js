@@ -9,6 +9,6 @@ var gfs = require('../../db');
 router.post('/upload', upload.single('file'), filesController.upload)
 router.param('fileName', filesController.param);
 router.get('/:fileName', filesController.get);
-router.post('/', filesController.post);
+
 
 module.exports = router
