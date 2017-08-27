@@ -1,15 +1,17 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../userModel')
-var decodeToken = require('../../auth').decodeToken
+var User = require('../api/user/userModel')
+var controller = require('./controller')
+var verifyUser = require('./auth').verifyUser
 
 
 
 
 
 
-router.post('/login',decodeToken(), function(req, res, next){
-  var user = req.user
+//Req.user will be there from middleware
+router.post('/login', verifyUser(), controller.login );
 
 
-})
+
+module.exports = router
