@@ -40,9 +40,6 @@ before(function(done){
     })
 
 
-
-
-
      it('should authorize user for access to resource', function(done){
           request(app)
           .put('/api/pets/' + Lemon_Id)
@@ -55,5 +52,22 @@ before(function(done){
     done()
           })
      } )
+
+
+     it('should not authorize user to edit resource (pet)', function(done){
+          request(app)
+          .put('/api/pets/' + spike_ID)
+          .send({name: 'Spikey_Hair'})
+          .set('Authorization','Bearer ' + token)
+          .end(function(err, res){
+            console.log("res.body",res.body)
+            chai(res.body).to.not.deep.equal({
+    __v: 0,  _id: "59a4890ab3b81f130414779b",name: "Spikey_Hair", owner: "59a48909b3b81f1304147798"})
+    done()
+          })
+     } )
+
+
+
 
 })
