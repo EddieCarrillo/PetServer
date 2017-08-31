@@ -37,7 +37,6 @@ exports.getId = function(req, res){
 
 
 exports.post = function(req, res){
-  console.log(req.body);
 
   Post.create(req.body, function(err, post){
     if (err){

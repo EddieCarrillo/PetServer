@@ -3,9 +3,11 @@ var router = express.Router();
 var postController = require('./postController')
 
 router.param('id', postController.param)
-router.get('/', postController.get);
 router.get('/:id', postController.getId);
-router.post('/', postController.post);
+
+router.route('/')
+.get(postController.getId)
+.post(postController.post)
 
 
 module.exports = router;
