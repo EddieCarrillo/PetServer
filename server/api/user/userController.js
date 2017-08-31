@@ -38,7 +38,8 @@ exports.getId =  function(req, res){
 }
 
 exports.post = function(req, res){
-
+  console.log(req.body)
+  console.log("POST /users create user called")
   var user = new User(req.body);
   var username = user.username;
   var plainTextPassword = user.password;
@@ -56,7 +57,6 @@ exports.post = function(req, res){
     }
     //Store hashed and salted pw in database
     user.password = hashedPassword
-    user.salt = salt
     //Save the user to db after encrypting user
     user.save(function(err, user){
       if (err) {
