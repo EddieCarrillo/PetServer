@@ -2,12 +2,8 @@ var Pet = require('./petModel');
 var _ = require('lodash');
 
 
-
-
-
-
-
 exports.param = function(req, res, next, id){
+
   Pet.findOne({_id: id}, function(err, pet){
     if(err){
       console.log(err);
@@ -16,7 +12,7 @@ exports.param = function(req, res, next, id){
       console.log("Could not find the user.")
       res.status(400).json();
     }else{
-      res.pet = pet;
+      req.pet = pet;
       next();
     }
   });
@@ -38,13 +34,14 @@ exports.get = function(req, res){
 }
 
 exports.getId =   function(req, res, next){
-  console.log("returns a pet represented by its id");
-  res.json(res.pet);
+  console.log('GET /pets/:id called')
+  res.json(req.pet);
 }
 
 exports.put = function(req, res){
-  var pet = res.pet
+  var pet = req.pet
   var update = req.body;
+  console.log('PUT /pets/:id called')
 
   _.merge(pet, update);
   console.log(pet);
@@ -65,17 +62,39 @@ exports.put = function(req, res){
 }
 
 exports.post = function(req, res){
+  var user = req.user
   var newPet = req.body;
+  newPet.owner = user._id
 
   Pet.create(newPet, function(err, createdPet){
     if (err){
       console.log("ERROR", err.message);
-      res.status(400).json();
+      res.status(400).send(err.message);
     }else if (!createdPet){
       console.log("Could not create a pet!")
-      res.status()
+      res.status(400).send("Could not create a pet")
     }else{
       res.status(201).json(createdPet);
     }
   })
+}
+
+
+exports.getMe = function(req, res){
+  var user = req.user
+
+  Pet.find({owner: user._id}, function(err, pets){
+      if (err){
+          console.log("ERROR", err.message)
+          res.status(400).send(err.message)
+      }else if (!pets){
+        console.log("Could not find the pet")
+        res.status(400).send("Could not find the pet")
+      }else{
+        console.log("Found pets", pets)
+        res.status(200).json(pets);
+      }
+
+  })
+
 }
