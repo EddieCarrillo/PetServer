@@ -7,8 +7,8 @@ var upload = multer();
 var gfs = require('../../db').gridfs;
 
 router.post('/upload', upload.single('file'), filesController.upload)
-router.param('fileName', filesController.param);
-router.get('/:fileName', filesController.get);
+router.param('id', filesController.param);
+router.get('/:id', filesController.get);
 
 
 module.exports = router
