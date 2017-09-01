@@ -1,7 +1,7 @@
 var multer = require('multer');
 var upload = multer();
 var mongoose = require('mongoose');
-var gfs = require('../../db');
+var gfs = require('../../db').gfs;
 var fs = require('fs');
 var stream = require('stream');
 var crypto = require('crypto');
@@ -9,13 +9,13 @@ var Files = require('./filesModel');
 
 
 
-exports.param = function(req, res, next, fileName){
+exports.param = function(req, res, next, id){
     var readStream = gfs.createReadStream({
-      filename: fileName
+      _id: id
     });
 
     readStream.on('error', function(err){
-      console.log(err.message);
+      console.log("[ERROR]",err.message);
       return  res.status(400).json();
     });
 
