@@ -3,7 +3,6 @@ var _ = require('lodash');
 
 
 exports.param = function(req, res, next, id){
-
   Pet.findOne({_id: id}, function(err, pet){
     if(err){
       console.log(err);
@@ -19,7 +18,13 @@ exports.param = function(req, res, next, id){
 }
 
 exports.get = function(req, res){
-  Pet.find({}, function (err, pets){
+  console.log("query: ", req.query)
+  console.log("constraint: ", req.constraint)
+  console.log("populate string: ", req.populate)
+  Pet
+  .find(req.constraint)
+  .populate(req.populate)
+  .exec(function (err, pets){
     if (err){
       console.log("ERROR", err.message);
       res.status(400).json();
@@ -35,7 +40,11 @@ exports.get = function(req, res){
 
 exports.getId =   function(req, res, next){
   console.log('GET /pets/:id called')
-  res.json(req.pet);
+  if (req.pets){
+    res.json(req.pets)
+  }else {
+    res.json(req.pet)
+  }
 }
 
 exports.put = function(req, res){
@@ -80,7 +89,7 @@ exports.post = function(req, res){
 }
 
 
-exports.getMe = function(req, res){
+exports.getMe = function(req, res, next){
   var user = req.user
 
   Pet.find({owner: user._id}, function(err, pets){
@@ -92,7 +101,7 @@ exports.getMe = function(req, res){
         res.status(400).send("Could not find the pet")
       }else{
         console.log("Found pets", pets)
-        res.status(200).json(pets);
+        res.json(pets)
       }
 
   })
