@@ -9,9 +9,18 @@ var prepareQueries = function(){
 
 
 return function(req, res, next){
+  var constraint = {};
+  var populateString = "";
+  req.constraint = constraint
+  req.populate = populateString
+
   var queryParams = req.query;
+  if (!queryParams || queryParams == {}){
+    return next();
+  }
+  //console.log()
   console.log("Query params: " + JSON.stringify(queryParams))
-var populateString = "";
+
   //Handle include parameters
   var include = queryParams.include
   var includeFields;
@@ -30,10 +39,21 @@ var populateString = "";
        delete queryParams.include
   }
 
+  if (!queryParams["where"]){return next();}
+ // Unescape url encoded json string query param
   var escapedString = queryString.unescape(queryParams["where"]);
-  var constraint = JSON.parse(escapedString);
-  req.constraint = constraint;
 
+
+
+    //If there is a where query
+       constraint = JSON.parse(escapedString);
+
+  console.log("escapedString: ", escapedString)
+  //Convert the string into a javascript object
+
+  //Added the query as the constraint for search.
+  req.constraint = constraint;
+//Attatch populate string to request. for mongoose upon search.
   req.populate = populateString
   next()
 
