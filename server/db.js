@@ -14,7 +14,7 @@ var connect = mongoose.connect('mongodb://localhost/myapp');
 var connection = mongoose.connection;
 
 connection.on('open', function(){
-  //dropDatabase(seedDatabase)
+//  dropDatabase(seedDatabase)
 
 })
 //Connect grid and mongo
@@ -117,4 +117,4 @@ function generalEncryptHandler(user, petName){
 }
 
 //Create connection to database and Grid
-exports.gridfs = Grid(connection.db)
+exports.gfs = Grid(connection.db)

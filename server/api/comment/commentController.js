@@ -9,14 +9,16 @@ exports.param = function(req, res, next, id){
       console.log("Could not find the user.")
       res.status(400).json();
     }else{
-      res.comment = comment;
+      req.comment = comment;
       next();
     }
   });
 }
 
 exports.get = function(req, res){
-  Comment.find({}, function (err, comments){
+  Comment.find(req.constraint)
+  .populate(req.populate)
+  .exec(function (err, comments){
     if (err){
       console.log("ERROR", err.message);
       res.status(400).json();
@@ -32,7 +34,7 @@ exports.get = function(req, res){
 
 exports.getId = function(req, res){
   console.log("returns a comment represented by its id");
-  res.json(res.comment);
+  res.json(req.comment);
 }
 
 exports.post = function(req, res){
@@ -45,6 +47,7 @@ exports.post = function(req, res){
       res.status()
     }else{
       res.status(201).json(createdComment);
+      console.log(createdComment)
     }
   })
 }

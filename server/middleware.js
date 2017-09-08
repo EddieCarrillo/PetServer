@@ -9,17 +9,20 @@ var prepareQueries = function(){
 
 
 return function(req, res, next){
+var queryParams = req.query;
+  //console.log()
+  console.log("Query params: " + JSON.stringify(queryParams))
   var constraint = {};
   var populateString = "";
+
   req.constraint = constraint
   req.populate = populateString
 
-  var queryParams = req.query;
+
   if (!queryParams || queryParams == {}){
     return next();
   }
-  //console.log()
-  console.log("Query params: " + JSON.stringify(queryParams))
+
 
   //Handle include parameters
   var include = queryParams.include

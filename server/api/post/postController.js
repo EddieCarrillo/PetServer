@@ -17,7 +17,14 @@ exports.param = function(req, res, next, id){
 }
 
 exports.get = function(req, res){
-  Post.find({}, function(err,posts){
+  var populate = req.populate;
+  var constraint = req.constraint;
+  console.log("constraint: ", req.constraint)
+  console.log("populate string: ", req.populate)
+
+  Post.find(constraint)
+  .populate(populate)
+  .exec(function(err,posts){
     if (err){
       console.log("ERROR", err);
       res.status(400).json();

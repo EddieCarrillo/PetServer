@@ -5,15 +5,22 @@ var getFreshUser = require('../../auth/auth').getFreshUser;
 var queryExtractor = require('../../middleware.js').prepareQuery
 
 var router = express.Router();
+var idRouter = express.Router();
 
-router.param('id', commentController.param);
+idRouter.param('id/id', commentController.param);
+
+idRouter.route('/:id')
+.get(commentController.getId)
+
+router.use('/id', idRouter)
+
+
 
 router.route('/')
 .get(queryExtractor(), commentController.get)
 .post(decodeToken(), getFreshUser(), commentController.post)
 
-router.route('/:id')
-.get(commentController.getId)
+
 
 
 

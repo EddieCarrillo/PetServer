@@ -9,8 +9,8 @@ var auth = require('../../auth/auth');
 
 
 
-router.param('id', userController.param);
-router.get('/:id',userController.getId);
+router.param('id/id', userController.param);
+router.get('id/:id',userController.getId);
 
 router.route('/')
 .get(userController.get)
