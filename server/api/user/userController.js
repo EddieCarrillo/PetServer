@@ -12,7 +12,7 @@ exports.param = function(req, res, next, id){
       console.log("Could not find user with id.");
       res.status(400).json();
     }else{
-      res.user = user
+      req.user = user.toJson()
       next();
     }
   })
@@ -33,8 +33,13 @@ exports.get = function(req, res){
   })
 }
 
+exports.refreshUser = function(req, res){
+
+  res.json(req.user)
+}
+
 exports.getId =  function(req, res){
-  res.json(res.user);
+  res.json(req.user);
 }
 
 exports.post = function(req, res){
