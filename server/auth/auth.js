@@ -23,10 +23,10 @@ exports.getFreshUser = function(){
     User.findById(req.user._id, function(err, user){
       if (err){
         console.log('ERROR', err.message);
-        return res.status(400).send('Err finding user in database');
+        return res.status(401).send('Err finding user in database');
       }else if (!user){
         //Deleted user because weird stuff or asian with beard and ponytail trying to hack with jwt
-        return res.status(400).send('User does not exist in the database');
+        return res.status(401).send('User does not exist in the database');
       }else{
         req.user = user;
         next()
@@ -53,13 +53,13 @@ exports.verifyUser = function(){
 
     if (!username || !plainTextPassword){
       console.log("Missing username and/or password")
-    return  res.status(400).send("Missing username and/or password");
+    return  res.status(401).send("Missing username and/or password");
     }
 
   User.findOne({username: username})
    .then(function(foundUser){
     if (!foundUser){
-      res.status(400).send('No user with that username')
+      res.status(401).send('No user with that username')
     }else{
       foundUser.authenticate(plainTextPassword, authenticateResultHandler(req,res, next, foundUser))
     }
@@ -80,9 +80,9 @@ exports.signToken = function(id) {
 var authenticateResultHandler = function(req,res, next, user){
   return function(err, result){
     if (err){
-      res.status(400).send('Error authenticate')
+      res.status(401).send('Error authenticate')
     }else if (!result){
-      res.status(400).send('Bad password')
+      res.status(401).send('Bad password')
     }else{
       console.log('Good password  ')
       req.user = user
