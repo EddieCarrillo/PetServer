@@ -40,11 +40,17 @@ userSchema.methods  = {
    ,
 
    //plainTextPassword - String
-   //completionHandler - callback(err, result), err- Error, result - Bool
+   //onFinished - callback(err, result), err- Error, result - Bool
    authenticate : function(plainTextPassword, onFinished){
      //By this time password should be hashed already...
       bcrypt.compare(plainTextPassword, this.password, onFinished);
 
+   },
+
+   toJson: function(){
+        var obj = this.toObject()
+        delete obj.password
+        return obj;
    }
 
   }
