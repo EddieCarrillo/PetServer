@@ -60,7 +60,9 @@ exports.upload = function(req, res, next ){
     return res.status(400).json();
   })
 
-  res.status(201).json({ok: "ok"});
+  console.log("id: ", writeStream.id)
+
+  res.status(201).json({id: writeStream.id });
 
 }
 
