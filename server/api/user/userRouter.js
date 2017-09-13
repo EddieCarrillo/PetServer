@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var userController = require('./userController');
 var auth = require('../../auth/auth');
+var idRouter = express.Router()
 
 
 
@@ -9,8 +10,12 @@ var auth = require('../../auth/auth');
 
 
 
-router.param('id/id', userController.param);
-router.get('id/:id',userController.getId);
+
+//id sub route
+idRouter.param('id', userController.param);
+idRouter.get('/:id',userController.getId);
+
+router.use('/id', idRouter)
 
 router.route('/')
 .get(userController.get)
