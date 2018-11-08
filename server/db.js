@@ -9,7 +9,7 @@ var Comment = require('./api/comment/commentModel')
 var Grid = require('gridfs-stream');
 
 //Connect to db
-var connect = mongoose.connect('mongodb://localhost/myapp');
+var connect = mongoose.connect(PROCESS.ENV.MONGODB_URI || 'mongodb://localhost/myapp');
 
 var connection = mongoose.connection;
 
