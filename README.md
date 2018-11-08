@@ -1,5 +1,7 @@
 # PetWorldServer
 
+## Instructions
+
 Download server from GITHUB here .
 https://github.com/EddieCurio/PetServer
 
@@ -14,36 +16,39 @@ https://www.mongodb.com/download-center#community
 After you download the project navigate to the project root  <WHEREEVER_YOU_DOWNLOADED_PROJECT>/Petworld
 
 
-If you use the server from github, the server runs on port 3000 so when you are using the server locally you should the url: http://localhost:3000/api/whateverelsefam…
+If you use the server from github, the server runs on port 3000 so when you are using the server locally you should the url: http://localhost:3000/api/<rel_path>
 
 Also make sure to start the mongodb server first since the server assumes it is already on.
 
 Quick Mongo Tutorial
 
-Command: sudo mongod <- starts mongodb
+Command: ```sudo mongod``` <- starts mongodb
 
- sudo mongo <- Will let you perform command on database
+ ```sudo mongo``` <- Will let you perform command on database
 
 
 Example
-Start mongo database (‘sudo mongod’)
+Start mongo database ```(‘sudo mongod’)```
 in one tab.
 
-Start mongo command line interface (‘sudo mongo’) in another tab
+Start mongo command line interface ```(‘sudo mongo’)``` in another tab
 
 To see what elements are in each “Collection” (Similar to table)
-navigate to database by going inside mongo command line interface(the one you typed ‘sudo mongo’ for...)
+navigate to database by going inside mongo command line interface(the one you typed ```‘sudo mongo’``` for...)
 
-type command ‘use myapp’ (myapp is the name of the database)
+type command ```‘use myapp’``` (myapp is the name of the database)
 
-Type ‘show collections’ to show all Models/Collections/Tables in a list like Pet, User, Comment, Post, etc.
+Type ```‘show collections’``` to show all Models/Collections/Tables in a list like Pet, User, Comment, Post, etc.
 
-Type ‘db.<collection_name>.find()’ to show all documents/rows/objects inside the collection
-Example: ‘db.comments.find()’ will display a list of all the comments in the Comments colleciton.
+Type ```‘db.<collection_name>.find()’``` to show all documents/rows/objects inside the collection
+Example: ```‘db.comments.find()’``` will display a list of all the comments in the Comments colleciton.
+
+
+## API DOCS
 
 
 
-User API
+# User API
 
 
 {
@@ -75,7 +80,7 @@ User API
 
 
 
-Pet API
+# Pet API
 {
 	“GET /pets”: {
         CAN USE QUERY PARAMS
@@ -113,7 +118,7 @@ Pet API
 
 
 }
-Post API
+# Post API
 {
 	“GET /posts”: {
        CAN USE QUERY PARAMS
@@ -156,7 +161,7 @@ Post API
 
 
 
-Comment API
+# Comment API
 {
 “GET /comments/:id”: {
 	  “desc”: “returns a comment represented by it’s id.”,
@@ -184,21 +189,7 @@ Comment API
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Files API
+# Files API
 {
 
 
@@ -223,7 +214,7 @@ Files API
 
 
 
-Query Params
+# Query Params
 Format <API_URL>?include=<member field trying to populate depending on api>&where=<member field meets constraint>
 
  include value will a normal key
@@ -234,9 +225,23 @@ Example: where={breed: “Cairn Terrier”}
 Make sure to url encode json (To account for special characters like spaces.)
 IF YOU DON’T KNOW HOW TO DO THAT THEN ASK ME OR GOOGLE/STACKOVERFLOW my friend. I will probably google it if you ask me.
 
-Example
+### Example
 
 http://baseurl.com/api/pets?include=owner&where={age: {$gt: 5}}
 
 
 Woah nested object. What’s with the nested  {$gt: 5}. $gt stands for greater than. So I am trying to query for all pets greater than 5 years of age. Nothing special, follow this link for more ---> https://docs.mongodb.com/manual/reference/operator/query/
+
+
+
+The following functionality is completed:
+
+- [x] Authentication (Login + Logout + Sign up) 
+  Used JSON Web Tokens for session handling
+- [x] Secured routes, Implemented authorization system with middleware again using JWT
+- [x] Data validation in NoSQL MongoDB (Using Mongoose)
+- [x] Can use custom queries in db using query params
+- [x] Used medium-large file data storage using GridFS API
+
+#Credits
+
