@@ -4,7 +4,8 @@
   "description": "Back-end for pet world",
   "main": "index.js",
   "scripts": {
-    "test": "mocha server/test.js"
+    "test": "mocha server/test.js",
+    "start": "nodemon server/server.js"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,7 @@
   },
   "homepage": "https://github.com/EddieCurio/PetWorldServer#readme",
   "dependencies": {
-    "bcrypt": "^1.0.3",
+    "bcrypt": ">=1.0.3",
     "body-parser": "^1.17.2",
     "chai": "^4.1.1",
     "express": "^4.15.4",
