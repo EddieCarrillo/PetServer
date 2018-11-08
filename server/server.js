@@ -9,7 +9,7 @@ var jwt = require('jsonwebtoken');
 var expressJwt = require('express-jwt')
 var checkValidToken = expressJwt({secret: 'lemon'})
 
-mongoose.connect('mongodb://localhost/myapp');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/myapp');
 
 
 
@@ -39,8 +39,8 @@ app.use(function(err, req, res, next){
 
 
 
-app.listen(3000, function(){
-  console.log("Listening on port 3000.");
+app.listen(process.env.port || 3000, function(){
+  console.log("Listening on port");
 });
 
 
