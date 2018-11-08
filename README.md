@@ -22,26 +22,26 @@ Also make sure to start the mongodb server first since the server assumes it is 
 
 Quick Mongo Tutorial
 
-Command: sudo mongod <- starts mongodb
+Command: ```sudo mongod``` <- starts mongodb
 
- sudo mongo <- Will let you perform command on database
+ ```sudo mongo``` <- Will let you perform command on database
 
 
 Example
-Start mongo database (‘sudo mongod’)
+Start mongo database ```(‘sudo mongod’)```
 in one tab.
 
-Start mongo command line interface (‘sudo mongo’) in another tab
+Start mongo command line interface ```(‘sudo mongo’)``` in another tab
 
 To see what elements are in each “Collection” (Similar to table)
-navigate to database by going inside mongo command line interface(the one you typed ‘sudo mongo’ for...)
+navigate to database by going inside mongo command line interface(the one you typed ```‘sudo mongo’``` for...)
 
-type command ‘use myapp’ (myapp is the name of the database)
+type command ```‘use myapp’``` (myapp is the name of the database)
 
-Type ‘show collections’ to show all Models/Collections/Tables in a list like Pet, User, Comment, Post, etc.
+Type ```‘show collections’``` to show all Models/Collections/Tables in a list like Pet, User, Comment, Post, etc.
 
-Type ‘db.<collection_name>.find()’ to show all documents/rows/objects inside the collection
-Example: ‘db.comments.find()’ will display a list of all the comments in the Comments colleciton.
+Type ```‘db.<collection_name>.find()’``` to show all documents/rows/objects inside the collection
+Example: ```‘db.comments.find()’``` will display a list of all the comments in the Comments colleciton.
 
 
 ## API DOCS
